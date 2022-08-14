@@ -1,0 +1,26 @@
+<div class="page-container">
+    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="autoCompletedSuggestions "
+        (completeMethod)="filterCountry($event.query)" field="LocalizedName" [dropdown]="true"
+        (onSelect)="selectSuggestion($event.Key, $event.LocalizedName)" class="autoComplete">
+        <ng-template let-country pTemplate="item">
+            <div class="country-item">
+                <div>{{country.LocalizedName}}</div>
+            </div>
+        </ng-template>
+    </p-autoComplete>
+
+    <div class="page-header">
+        <div *ngIf="currentForecast.cityName">
+            <button pButton pRipple type="button" label={{options}} class="p-button-rounded p-button-secondary"
+            (click)="updateFavorite()"></button>
+            <div [ngClass]="{'city-weather-details': currentForecast.cityName}"
+                *ngIf="currentForecast$ | async as currentForecast">
+                <h1 class="title">{{currentForecast.cityName}}</h1>
+                <img *ngIf="currentForecast.icon" class="icon" [src]="currentForecast.icon|accuweatherIcon" />
+                <h1 class="title">{{currentForecast.temperature}} {{currentForecast.unit}}</h1>
+                <h1 class="title">{{currentForecast.weatherText}}</h1>
+            </div>
+        </div>
+        <app-forecasts class="forecasts" [key]='cityKey'></app-forecasts>
+    </div>
+</div>

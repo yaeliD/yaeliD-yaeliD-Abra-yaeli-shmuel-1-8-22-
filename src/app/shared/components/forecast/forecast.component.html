@@ -1,0 +1,9 @@
+<div class="container">
+  <p class="title">{{currentForecast.cityName}}</p>
+  <p class="title">{{currentForecast.Date | date : 'E'}}</p>
+  <div class="temperature">
+    <span class="temperature-value">{{currentForecast.Temperature.Minimum.Value}}</span>
+    <span class="temperature-unit">{{currentForecast.Temperature.Minimum.Unit}}</span>
+  </div>
+  <img class="icon" [src]="currentForecast.Day.Icon|accuweatherIcon"/>
+</div>

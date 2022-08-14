@@ -1,0 +1,4 @@
+<h1 class="title">{{headLine}}</h1>
+<div *ngFor="let forecast of forecasts">
+    <app-forecast [currentForecast]="forecast"></app-forecast>
+</div>

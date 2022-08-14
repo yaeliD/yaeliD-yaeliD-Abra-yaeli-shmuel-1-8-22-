@@ -1,0 +1,18 @@
+<div class="page-container">
+  <div class="partner-logo"></div>
+  <div class="login-card">
+    <div class="login-card-header">login</div>
+    <div class="login-card-content">
+      <form InputText [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <input class="form-field" [class.form-field-invalid]="userName?.invalid && (userName?.dirty || userName?.touched)" id="userName" formControlName="userName" type="text" placeholder="user name">
+        <div *ngIf="userName?.invalid && (userName?.dirty || userName?.touched)">
+          <div class="error-message" *ngIf="userName?.errors?.['required']">You must enter a username</div>
+          <div class="error-message" *ngIf="userName?.errors?.['minlength']"> Please enter at least 5 characters</div>
+          <div class="error-message" *ngIf="userName?.errors?.['maxlength']"> Please enter less than 10 characters</div>
+          <div class="error-message" *ngIf="userName?.errors?.['pattern']"> Please insert letters in English and/or Hebrew only</div>
+        </div>
+      <button pButtonp type="submit" label="login" [disabled]="loginForm.invalid"></button>
+    </form>
+    </div>
+  </div>
+</div>

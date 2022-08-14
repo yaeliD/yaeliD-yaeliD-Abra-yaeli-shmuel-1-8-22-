@@ -1,0 +1,12 @@
+<div class="page-container">
+  <div class="page-header">
+    <div class="header-text">
+      <h3 *ngIf="userName" class="small-title">hii {{userName}},</h3>
+      <h1 class="large-title">weather</h1>
+    </div>
+    <button pButton pRipple (click)="showFavorites()" type="button" label="FAVORITES" class="p-button-rounded p-button-secondary"></button>
+  </div>
+  <div class="page-main-content" style="background-color: transparent;">
+    <app-weather></app-weather>
+  </div>
+</div>

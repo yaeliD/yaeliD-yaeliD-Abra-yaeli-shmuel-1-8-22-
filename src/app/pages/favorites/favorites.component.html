@@ -1,0 +1,7 @@
+<div class="container">
+  <h1 class="title">FAVORITE</h1>
+  <button pButton pRipple (click)="home()" type="button" label="HOME" class="p-button-rounded p-button-secondary"></button>
+  <div *ngFor="let favorite of favorites$ | async">
+    <app-favorite (click)="showDetailsFavorite(favorite)" [favorite]='favorite'></app-favorite>
+  </div>
+</div>

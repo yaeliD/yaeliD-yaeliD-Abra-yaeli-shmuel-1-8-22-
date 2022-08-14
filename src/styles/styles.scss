@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+@import  'reset';
+@import 'fonts';
+@import 'variables';
+// @import 'toster';
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  direction: ltr;
+  background-color: $primary-color;
+}
+
+html {
+  font-size: 16px;
+  
+  @media (min-width:300px) {
+    font-size: 16px;
+  }
+
+  @media (min-width:768px) {
+    font-size: 18px;
+  }
+
+  @media (min-width:1024px) {
+    font-size: 19px;
+  }
+
+  @media (min-width:1205px) {
+    font-size: 20px;
+  }
+
+  @media (min-width:1536px) {
+    font-size: 21px;
+  }
+
+  @media (min-width:1925px) {
+    font-size: 23px;
+  }
+}
+
