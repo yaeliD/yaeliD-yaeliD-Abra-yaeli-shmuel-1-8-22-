@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { Observable, timer } from 'rxjs';
+import { ErrorService } from 'src/app/core/services/error.service';
 import { UpdateCurrentForecastAction } from 'src/app/core/store/current-forecast/current-forecast.actions';
 import { AddFavoriteAction } from 'src/app/core/store/favorites/favorites.actions';
 import { Forecast } from 'src/app/shared/models/forecast.model';
@@ -17,7 +18,7 @@ export class FavoritesComponent implements OnInit {
 
   favorites$!: Observable<Forecast[]>;
 
-  constructor(private store: Store<State>, private router: Router, private dbService: NgxIndexedDBService) { }
+  constructor(private store: Store<State>, private router: Router, private dbService: NgxIndexedDBService, private errorService: ErrorService) { }
 
   ngOnInit(): void {
     this.favorites$ = this.store.select((store) => store.favorites);
@@ -35,7 +36,9 @@ export class FavoritesComponent implements OnInit {
           }
         });
       },
-      error: () => { }
+      error: (error: any) => {
+        this.errorService.showErrorToast(error.error);
+      }
     })
   }
 
@@ -43,7 +46,6 @@ export class FavoritesComponent implements OnInit {
     this.store.dispatch(new UpdateCurrentForecastAction(favorite));
     this.router.navigate(['/home']);
   }
-
 
   home() {
     this.router.navigate(['/home']);

@@ -15,5 +15,4 @@ export class ErrorService {
 		Reference: ${message.Reference}` : 'Something went wrong, please try again later', 'Error')
 	}
 
-
 }

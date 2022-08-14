@@ -1,4 +1,3 @@
-import { HttpClient } from "@angular/common/http";
 import { Pipe, PipeTransform } from "@angular/core";
 
 export const IMG_URL = `https://developer.accuweather.com/sites/default/files`;
@@ -6,8 +5,6 @@ export const IMG_URL = `https://developer.accuweather.com/sites/default/files`;
   name: 'accuweatherIcon'
 })
 export class AccuweatherIconPipe implements PipeTransform {
-
-    // constructor(public http: HttpClient){}
 
   transform(value: any): any {
     console.log(value);

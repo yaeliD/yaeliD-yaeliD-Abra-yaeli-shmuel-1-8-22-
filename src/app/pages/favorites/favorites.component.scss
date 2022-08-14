@@ -1,66 +1,6 @@
 
 @import '../../../styles/variables.scss';
 
-::ng-deep .p-carousel .p-carousel-content .p-carousel-next,  ::ng-deep .p-carousel .p-carousel-content .p-carousel-prev{
-  background-image: url("/assets/images/next_arrow.png") !important;
-  background-repeat: no-repeat !important;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0;
-  span {
-    display: none;
-  }
-  &:hover {
-    background-color: transparent !important;
-  }
-  &:focus {
-    box-shadow: none !important;
-  }
-}
-
-::ng-deep .p-carousel .p-carousel-content .p-carousel-prev {
-  background-image: url("/assets/images/prev_arrow.png") !important;
-}
-
-::ng-deep .p-carousel-container {
-  justify-content: center !important;
-  padding-top: 30px !important;
-}
-
-::ng-deep .p-link:focus {
-  box-shadow: none !important;
-}
-
-::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button {
-  width: 0.6rem;
-  height: 0.6rem;
-  border: 1px #d7d6d6 solid;
-  border-radius: 50%;
-}
-
-::ng-deep .p-carousel-item {
-  margin-top: 1.3rem;
-  margin-bottom: 1.3rem;
-}
-
-::ng-deep .p-carousel-items-content {
-  width: 65% !important;
-
-  @media(max-width: 1653px) {
-    width: 80% !important;
-  }
-
-  @media(max-width: 1264px) {
-    width: 90% !important;
-  }
-
-}
-
-::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-  background-color: $primary-color;
-  border: 0px;
-}
-
 .title {
   font-family: 'simpler-black';
   font-size: 1.3rem;

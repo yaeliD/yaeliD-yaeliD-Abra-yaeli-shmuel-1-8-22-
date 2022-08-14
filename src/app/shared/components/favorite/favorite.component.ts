@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Forecast } from '../../models/forecast.model';
 
 @Component({
@@ -9,6 +9,7 @@ import { Forecast } from '../../models/forecast.model';
 export class FavoriteComponent implements OnInit {
 
   @Input() favorite!: Forecast;
+
   constructor() { }
 
   ngOnInit(): void {

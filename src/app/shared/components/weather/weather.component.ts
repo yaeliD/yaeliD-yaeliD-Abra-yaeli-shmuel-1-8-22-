@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { WeatherService } from 'src/app/core/services/weather.service';
 import { Forecast } from '../../models/forecast.model';
@@ -8,7 +8,6 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { options } from '../../enums/options.enum';
 import { UpdateCurrentForecastAction } from 'src/app/core/store/current-forecast/current-forecast.actions';
 import { Observable } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import { ErrorService } from 'src/app/core/services/error.service';
 
 const DEFAULT_LAT = 32.06056592003395;
@@ -18,33 +17,29 @@ const DEFAULT_LNG = 34.78557562374166;
   selector: 'app-weather',
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.scss'],
-  
+
 })
-export class WeatherComponent implements OnInit {
+export class WeatherComponent {
 
   autoCompletedSuggestions: any;
   selectedCountryAdvanced!: any[];
-  forecasts: any;
   options: options = options.Add;
-  headLine: any;
-  isStart: boolean = true;
   currentForecast$!: Observable<Forecast>;
-  domLoaded!: boolean;
   currentForecast: any;
   cityKey: any;
+
   constructor(private weatherService: WeatherService, private store: Store<State>, private dbService: NgxIndexedDBService, private errorService: ErrorService) {
     this.currentForecast$ = this.store.select((store) => store.currentForecast);
     this.currentForecast$.subscribe({
       next: (res) => {
         this.currentForecast = res;
         this.cityKey = res.key;
-        if(res.key) this.isFavorite(res.key);
+        if (res.key) this.isFavorite(res.key);
       },
       error: (error) => {
-        console.log(error.status, 'err');
         this.errorService.showErrorToast(error.error);
       }
-    }); 
+    });
   }
 
   ngAfterViewInit() {
@@ -54,14 +49,7 @@ export class WeatherComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-
-
-  }
-
   cityDefault() {
-    console.log('cityDefault', this.cityDefault);
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
@@ -70,7 +58,8 @@ export class WeatherComponent implements OnInit {
             this.selectSuggestion(data.Key, data.LocalizedName);
           },
           error: (error: any) => {
-            this.errorService.showErrorToast(error.error);          }
+            this.errorService.showErrorToast(error.error);
+          }
         });
       });
     } else {
@@ -88,7 +77,6 @@ export class WeatherComponent implements OnInit {
   filterCountry(event: any) {
     this.weatherService.getAutoComplete(event).subscribe({
       next: (filtered: any) => {
-        console.log('this.filteredCountries0', filtered);
         this.autoCompletedSuggestions = filtered;
       }, error: (error: any) => {
         this.errorService.showErrorToast(error.error);
@@ -117,7 +105,6 @@ export class WeatherComponent implements OnInit {
     this.weatherService.getCurrentWeatherByKeyCity(key).subscribe({
       next: (res) => {
         let id = this.isFavorite(key);
-        console.log('selectCity', res);
         this.store.dispatch(new UpdateCurrentForecastAction({
           cityName: name,
           icon: res[0].WeatherIcon,
@@ -158,10 +145,8 @@ export class WeatherComponent implements OnInit {
         });
         break;
       case options.Delete:
-        console.log('Delete');
-
         this.dbService.deleteByKey('favorites-cities', this.currentForecast.id).subscribe({
-          next: (status) => {
+          next: () => {
             this.store.dispatch(new DeleteFavoriteAction(this.currentForecast));
             this.options = options.Add;
           }, error: (error: any) => {
@@ -170,7 +155,6 @@ export class WeatherComponent implements OnInit {
         });
     }
   }
-
 
 }
 
