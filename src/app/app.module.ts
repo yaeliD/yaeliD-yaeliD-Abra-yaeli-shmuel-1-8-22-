@@ -34,6 +34,7 @@ export function migrationFactory() {
     1: (transaction: any) => {
       const store = transaction.objectStore('favorites-cities');
       store.createIndex('city', 'city', { unique: false });
+
     }
   };
 }

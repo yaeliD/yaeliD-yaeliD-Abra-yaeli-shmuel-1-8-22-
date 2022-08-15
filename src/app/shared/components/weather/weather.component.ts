@@ -33,14 +33,13 @@ export class WeatherComponent implements OnDestroy {
     this.currentForecast$ = this.store.select((store) => store.currentForecast);
     this.subCurrentForecast$ = this.currentForecast$.subscribe({
       next: (res) => {
-        if (res.cityName) {
-          console.log('aaaa');
-          
+        if (res.cityName && res.key) { 
+          console.log(res.cityName ,res.key);
+                   
           this.currentForecast = res;
           this.cityKey = res.key;
           if (res.key) this.OptionsToFavorite(res.key);
         } else {
-          console.log('bbbbbb');
           this.cityDefault();
         }
       },
