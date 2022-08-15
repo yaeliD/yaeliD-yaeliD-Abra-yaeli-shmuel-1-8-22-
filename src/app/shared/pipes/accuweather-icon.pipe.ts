@@ -6,12 +6,8 @@ export const IMG_URL = `https://developer.accuweather.com/sites/default/files`;
 })
 export class AccuweatherIconPipe implements PipeTransform {
 
-  transform(value: any): any {
-    console.log(value);
-    
-    let str = value > 9 ? value : `0${value}`;
-    console.log(`${IMG_URL}/${str}-s.png`);
-    
+  transform(value: any): any {    
+    const str = value > 9 ? value : `0${value}`;
     return `${IMG_URL}/${str}-s.png`;
   }
 

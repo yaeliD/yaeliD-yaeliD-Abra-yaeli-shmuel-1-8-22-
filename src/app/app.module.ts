@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +20,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ForecastsComponent } from './shared/components/forecasts/forecasts.component';
 import { ForecastComponent } from './shared/components/forecast/forecast.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './core/reducers';
+import { reducers } from './core/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
@@ -31,14 +31,9 @@ import { AccuweatherIconPipe } from './shared/pipes/accuweather-icon.pipe';
 
 export function migrationFactory() {
   return {
-    1: (db: any, transaction: any) => {
+    1: (transaction: any) => {
       const store = transaction.objectStore('favorites-cities');
       store.createIndex('city', 'city', { unique: false });
-
-    },
-    3: (db:any, transaction:any) => {
-      const store = transaction.objectStore('users');
-      store.createIndex('userName', 'userName', { unique: false });
     }
   };
 }
@@ -57,18 +52,9 @@ const dbConfig: DBConfig = {
       { name: 'weatherText', keypath: 'weatherText', options: { unique: false } },
       { name: 'unit', keypath: 'unit', options: { unique: false } },
     ]
-  }, {
-    store: 'users',
-    storeConfig: { keyPath: 'id', autoIncrement: true },
-    storeSchema: [
-      { name: 'userName', keypath: 'userName', options: { unique: true } },
-    ]
   }],
   migrationFactory
 };
-
-
-
 
 @NgModule({
   declarations: [
@@ -99,11 +85,11 @@ const dbConfig: DBConfig = {
     BrowserAnimationsModule,
     NoopAnimationsModule,
     ToastContainerModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     NgxIndexedDBModule.forRoot(dbConfig),
-    BrowserAnimationsModule , 
-    ToastrModule . forRoot () ,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   bootstrap: [AppComponent]
 })

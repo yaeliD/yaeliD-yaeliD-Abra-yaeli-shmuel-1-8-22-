@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { Observable, timer } from 'rxjs';
+import { Observable, Subscription, timer } from 'rxjs';
 import { ErrorService } from 'src/app/core/services/error.service';
 import { UpdateCurrentForecastAction } from 'src/app/core/store/current-forecast/current-forecast.actions';
 import { AddFavoriteAction } from 'src/app/core/store/favorites/favorites.actions';
@@ -14,19 +14,26 @@ import { State } from '../../core/reducers/index';
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss']
 })
-export class FavoritesComponent implements OnInit {
+export class FavoritesComponent implements OnInit, OnDestroy {
 
   favorites$!: Observable<Forecast[]>;
+  getAll$!: Subscription;
+  favorite$!: Subscription;
 
   constructor(private store: Store<State>, private router: Router, private dbService: NgxIndexedDBService, private errorService: ErrorService) { }
 
+  ngOnDestroy(): void {
+    this.getAll$.unsubscribe();
+    this.favorite$.unsubscribe()
+  }
+
   ngOnInit(): void {
     this.favorites$ = this.store.select((store) => store.favorites);
-    this.dbService.getAll('favorites-cities').subscribe({
+    this.getAll$ = this.dbService.getAll('favorites-cities').subscribe({
       next: (Favorites: any) => {
         Favorites.forEach((newFavorite: any) => {
           let save = true;
-          this.favorites$.subscribe((favorites: any) => {
+          this.favorite$ = this.favorites$.subscribe((favorites: any) => {
             favorites.forEach((favorite: any) => {
               if (newFavorite.key === favorite.key) save = false;
             });

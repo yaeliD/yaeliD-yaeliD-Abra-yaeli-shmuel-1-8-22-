@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Forecast } from '../../models/forecast.model';
 
 @Component({
@@ -6,15 +6,7 @@ import { Forecast } from '../../models/forecast.model';
   templateUrl: './favorite.component.html',
   styleUrls: ['./favorite.component.scss']
 })
-export class FavoriteComponent implements OnInit {
+export class FavoriteComponent {
 
   @Input() favorite!: Forecast;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-
-
 }

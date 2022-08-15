@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -8,17 +8,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   loginForm = this.fb.group({
-    userName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(10) , Validators.pattern('^[a-zA-Z\u05D0-\u05EA]+$')]]
+    userName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(10), Validators.pattern('^[a-zA-Z\u05D0-\u05EA]+$')]]
   });
-  controls = this.loginForm.controls;
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
-
-  ngOnInit(): void {
-  }
 
   onSubmit(): void {
     // save user in storage and in service

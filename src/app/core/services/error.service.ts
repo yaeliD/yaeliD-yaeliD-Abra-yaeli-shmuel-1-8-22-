@@ -10,7 +10,7 @@ export class ErrorService {
 
 	public showErrorToast(message?: any): void {
 		this.toastrService.error(message ?
-		`Code: ${message.Code}
+			`Code: ${message.Code}
 		Message: ${message.Message}
 		Reference: ${message.Reference}` : 'Something went wrong, please try again later', 'Error')
 	}

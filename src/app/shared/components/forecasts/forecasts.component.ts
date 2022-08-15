@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ErrorService } from 'src/app/core/services/error.service';
 import { WeatherService } from 'src/app/core/services/weather.service';
 
@@ -7,27 +7,23 @@ import { WeatherService } from 'src/app/core/services/weather.service';
   templateUrl: './forecasts.component.html',
   styleUrls: ['./forecasts.component.scss']
 })
-export class ForecastsComponent implements OnChanges {
+export class ForecastsComponent {
 
-  @Input() key: any;
+  @Input() set key(value: boolean) {
+    this.getFiveDays(value);
+  }
   forecasts: any;
   headLine: any;
 
   constructor(private weatherService: WeatherService, private errorService: ErrorService) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['key'] && changes['key'].currentValue) {
-      this.getFiveDays();
-    }
-  }
-
-  getFiveDays() {
-    this.weatherService.get5DaysOfForecasts(this.key).subscribe({
-      next: (fiveDaysForecastData: any) => {
+  getFiveDays(key: any) {
+    this.weatherService.get5DaysOfForecasts(key).subscribe({
+      next: (fiveDaysForecastData) => {
         this.headLine = fiveDaysForecastData.Headline.Text;
         this.forecasts = fiveDaysForecastData.DailyForecasts;
       },
-      error: (error: any) => {
+      error: (error) => {
         this.errorService.showErrorToast(error.error);
       }
     });
