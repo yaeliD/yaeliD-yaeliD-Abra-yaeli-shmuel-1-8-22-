@@ -34,13 +34,11 @@ export function migrationFactory() {
     1: (db: any, transaction: any) => {
       const store = transaction.objectStore('favorites-cities');
       store.createIndex('city', 'city', { unique: false });
-      // var transaction = db.transaction(["city"], 'tel aviv');
 
     },
     3: (db:any, transaction:any) => {
       const store = transaction.objectStore('users');
       store.createIndex('userName', 'userName', { unique: false });
-      // var transaction = db.transaction(["userName"], 'yaeli');
     }
   };
 }
@@ -101,11 +99,9 @@ const dbConfig: DBConfig = {
     BrowserAnimationsModule,
     NoopAnimationsModule,
     ToastContainerModule,
-    // NgrxStoreIdbModule.forRoot({keys: ['favorites']}),
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     NgxIndexedDBModule.forRoot(dbConfig),
-    // NgrxStoreIdbModule.forRoot({keys:[{}]}),
     BrowserAnimationsModule , 
     ToastrModule . forRoot () ,
   ],
