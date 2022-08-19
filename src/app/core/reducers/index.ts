@@ -1,4 +1,4 @@
-import { ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { ActionReducerMap } from '@ngrx/store';
 import * as Favorites from '../store/favorites/favorites.reducer';
 import * as CFavorite from '../store/current-forecast/current-forecast.reducer';
 import { Forecast } from 'src/app/shared/models/forecast.model';

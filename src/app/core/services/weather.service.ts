@@ -33,7 +33,7 @@ export class WeatherService {
   }
 
   getGeoPosition(lat: number, lng: number): Observable<any> {
-    return this.http.get(`${this.URL}/locations/v1/cities/geoposition/search/?apikey=mZubytyHL1AkRgmuAPiDF5hFDjy0Il3Y&q=${lat},${lng}`);
+    return this.getRequest(`${this.URL}/locations/v1/cities/geoposition/search/`, `${lat},${lng}`);
   }
 
 }

@@ -9,8 +9,8 @@ import { WeatherService } from 'src/app/core/services/weather.service';
 })
 export class ForecastsComponent {
 
-  @Input() set key(value: boolean) {
-    this.getFiveDays(value);
+  @Input() set key(value: any) {
+    if(value) this.getFiveDays(value);
   }
   forecasts: any;
   headLine: any;

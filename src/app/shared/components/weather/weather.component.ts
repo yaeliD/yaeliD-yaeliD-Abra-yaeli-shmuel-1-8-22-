@@ -27,18 +27,14 @@ export class WeatherComponent implements OnDestroy {
   currentForecast$!: Observable<Forecast>;
   subCurrentForecast$!: Subscription;
   currentForecast: any;
-  cityKey: any;
 
   constructor(private weatherService: WeatherService, private store: Store<State>, private dbService: NgxIndexedDBService, private errorService: ErrorService) {
     this.currentForecast$ = this.store.select((store) => store.currentForecast);
     this.subCurrentForecast$ = this.currentForecast$.subscribe({
       next: (res) => {
-        if (res.cityName && res.key) { 
-          console.log(res.cityName ,res.key);
-                   
+        if (res.cityName) {                    
           this.currentForecast = res;
-          this.cityKey = res.key;
-          if (res.key) this.OptionsToFavorite(res.key);
+          this.OptionsToFavorite(res.key);
         } else {
           this.cityDefault();
         }
@@ -84,6 +80,7 @@ export class WeatherComponent implements OnDestroy {
       }
     });
   }
+
   async OptionsToFavorite(key: any) {
     let favorites = await lastValueFrom(this.dbService.getAll('favorites-cities'));
     let favorite: any = favorites.filter((f: any) => { return f.key === key })
